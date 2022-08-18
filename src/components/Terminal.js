@@ -10,7 +10,7 @@ export default function Terminal({
   setIsCurrent,
 }) {
   const [state, setState] = useState("");
-  const [terminalText, setTerminalText] = useState([""]);
+  const [terminalText, setTerminalText] = useState([]);
   const [input, setInput] = useState([""]);
 
   const body = useRef();
@@ -93,7 +93,8 @@ export default function Terminal({
   };
 
   useEffect(() => {
-    body.current.scrollTo(0, body.current.scrollHeight);
+    terminalText.length > 0 &&
+      body.current.scrollTo(0, body.current.scrollHeight);
   }, [terminalText]);
 
   useEffect(() => {
@@ -105,6 +106,7 @@ export default function Terminal({
       {showState && (
         <Container
           className={`${state} ${isCurrent === "terminal" ? "focused" : ""}`}
+          onClick={() => setIsCurrent("terminal")}
         >
           <div className="terminal_header">
             <span onClick={handleMinimize}>
