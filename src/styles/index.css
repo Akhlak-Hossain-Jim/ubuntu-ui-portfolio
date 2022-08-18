@@ -6,10 +6,14 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
+  font-family: "Ubuntu", sans-serif;
 }
 
 :root {
   /* bg color */
+  --black: #000;
+  --blackTransparent: rgba(0, 0, 0, 0.5);
   --nav-bg: #1c1d1e;
   --nav-bg-transparent: #1c1d1ed9;
   --terminal-header: #302e2e;
@@ -37,5 +41,20 @@
 body {
   background-color: black;
   color: var(--color-p);
-  font-family: "Ubuntu", sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 0 solid #fff;
+  border-radius: 20px;
+  background: var(--yellow);
+}
+
+.focused {
+  z-index: 500;
 }
