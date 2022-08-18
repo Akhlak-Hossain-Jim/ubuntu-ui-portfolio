@@ -8,6 +8,7 @@ export default function Terminal({
   showApp,
   isCurrent,
   setIsCurrent,
+  openGithub,
 }) {
   const [state, setState] = useState("");
   const [terminalText, setTerminalText] = useState([]);
@@ -16,11 +17,13 @@ export default function Terminal({
   const body = useRef();
 
   const useableCommands = [
-    "'code . to open the code",
     "'clear' to clear the terminal",
     "'exit' to close the terminal",
-    "'portfolio .' to open up Akhlak's Portfolio",
     "'reboot' to reload the window",
+    "'boot' to close the window",
+    "'code . to open the code",
+    "'portfolio .' to open up Akhlak's Portfolio",
+    "'github .' to open up Github instance",
     "'help' to get help",
   ];
 
@@ -71,6 +74,12 @@ export default function Terminal({
       setTimeout(() => {
         window.open("https://ahjim.com", "_blank");
       }, 1000);
+    } else if (input.toLowerCase() === "github .") {
+      setTerminalText([...terminalText, `$ ${input}`]);
+      setTimeout(() => {
+        openGithub(true);
+        setIsCurrent("github");
+      }, 1000);
     } else {
       setTerminalText([
         ...terminalText,
@@ -107,6 +116,7 @@ export default function Terminal({
         <Container
           className={`${state} ${isCurrent === "terminal" ? "focused" : ""}`}
           onClick={() => setIsCurrent("terminal")}
+          onFocus={() => setIsCurrent("terminal")}
         >
           <div className="terminal_header">
             <span onClick={handleMinimize}>
@@ -174,6 +184,7 @@ const Container = styled.div`
   width: min(500px, 100%);
   height: min(300px, 100%);
   overflow: none;
+  z-index: 2;
   &.minimize {
     width: 0;
     height: 0;
