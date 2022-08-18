@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { BsFillTerminalFill } from "react-icons/bs";
+import { VscGithub } from "react-icons/vsc";
 
 export default function Aside(props) {
   const handleTerminal = () => {
@@ -13,6 +14,16 @@ export default function Aside(props) {
       props.setTerminal(true);
     }
   };
+  const handleGithub = () => {
+    if (props.github) {
+      props.currentApp === "github"
+        ? props.setCurrentApp("")
+        : props.setCurrentApp("github");
+    } else {
+      props.setCurrentApp("github");
+      props.setGithub(true);
+    }
+  };
   return (
     <Container>
       <div className="aside_top">
@@ -21,6 +32,12 @@ export default function Aside(props) {
           onClick={handleTerminal}
         >
           <BsFillTerminalFill />
+        </span>
+        <span
+          className={`github ${props.github ? "hasTab" : ""}`}
+          onClick={handleGithub}
+        >
+          <VscGithub style={{ transform: "scale(1.1)", margin: "auto" }} />
         </span>
       </div>
     </Container>
@@ -38,19 +55,24 @@ const Container = styled.aside`
     width: calc(50px + 2vmin);
   }
   .aside_top {
-    gap: "8px";
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     & > span {
       cursor: pointer;
+      position: relative;
     }
   }
   .terminal {
     color: var(--program-header);
     font-size: 1.8rem;
     position: relative;
+    display: flex;
     &:before {
       content: "";
       position: absolute;
-      height: 10px;
+      top: 4px;
+      height: 15px;
       width: 100%;
       top: 4px;
       background-color: white;
@@ -61,6 +83,13 @@ const Container = styled.aside`
       z-index: 2;
     }
   }
+  .github {
+    color: #fff;
+    background-color: #792f9e;
+    font-size: 1.7rem;
+    border-radius: 50%;
+    display: flex;
+  }
   .hasTab {
     position: relative;
     &:after {
@@ -68,7 +97,9 @@ const Container = styled.aside`
       position: absolute;
       width: 6px;
       top: 50%;
-      transform: translateY(-100%) translateX(4px);
+      left: auto;
+      right: -9px;
+      transform: translateY(-50%);
       aspect-ratio: 1/1;
       background-color: white;
       border-radius: 50%;

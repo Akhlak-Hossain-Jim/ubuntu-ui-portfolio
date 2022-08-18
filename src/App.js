@@ -8,24 +8,28 @@ import Github from "./components/Github";
 function App() {
   const [currentApp, setCurrentApp] = useState("");
   const [showTerminal, setShowTerminal] = useState(false);
-  const [showGithub, setShowGithub] = useState(true);
+  const [showGithub, setShowGithub] = useState(false);
 
   return (
     <HomeContainer>
       <Header isCurrent={currentApp} setIsCurrent={setCurrentApp} />
       <div className="body">
         <Aside
-          terminal={showTerminal}
-          setTerminal={setShowTerminal}
           setCurrentApp={setCurrentApp}
           currentApp={currentApp}
+          terminal={showTerminal}
+          setTerminal={setShowTerminal}
+          github={showGithub}
+          setGithub={setShowGithub}
         />
-        <main onClick={() => setCurrentApp("")}>
+        <main>
+          <div className="bg" onClick={() => setCurrentApp("")}></div>
           <Terminal
             showState={showTerminal}
             showApp={setShowTerminal}
             isCurrent={currentApp}
             setIsCurrent={setCurrentApp}
+            openGithub={setShowGithub}
           />
           <Github
             showState={showGithub}
