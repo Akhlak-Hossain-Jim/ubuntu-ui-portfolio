@@ -8,14 +8,14 @@ export default function Close({ close, setClose, isCurrent }) {
         <div className="close_container--header">Close Window?</div>
         <div className="close_container__body">
           <div className="close_container__body_line">
-            This will close your browser with all tab
+            This will close your tab
           </div>
           <div className="close_container__body_line">
             <button
               className="close_container__body_line-button"
               onClick={() => window.close()}
             >
-              Close All
+              Close
             </button>
             <button
               className="close_container__body_line-button"
