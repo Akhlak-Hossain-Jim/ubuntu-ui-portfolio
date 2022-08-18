@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function Close({ close, setClose }) {
+export default function Close({ close, setClose, isCurrent }) {
   return (
-    <Container>
+    <Container className={isCurrent ? "focused" : ""}>
       <div className="close_container">
         <div className="close_container--header">Close Window?</div>
         <div className="close_container__body">
@@ -45,6 +45,7 @@ const Container = styled.div`
   bottom: 0;
   top: 27px;
   left: 50px;
+  background-color: var(--blackTransparent);
   @media (min-width: 1441px) {
     left: calc(50px + 2vmin);
     top: calc(27px + 2vmin);
