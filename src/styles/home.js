@@ -9,13 +9,13 @@ const HomeContainer = styled.main`
     background-repeat: no-repeat;
     background-position: top;
     height: calc(100vh - 27px);
-    aside {
-      background-color: var(--nav-bg-transparent);
-      height: calc(100vh - 27px);
-      width: 50px;
-      @media (min-width: 1441px) {
-        width: calc(50px + 2vmin);
-      }
+    display: flex;
+    flex-direction: row;
+    main {
+      flex: 1;
+      position: relative;
+      height: 100%;
+      overflow: hidden;
     }
   }
 `;

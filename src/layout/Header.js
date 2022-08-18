@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { AiOutlineCaretDown } from "react-icons/ai";
-import { MdPowerSettingsNew } from "react-icons/md";
+import { MdPowerSettingsNew, MdOutlineSettings } from "react-icons/md";
 import { GiSpeaker, GiSpeakerOff } from "react-icons/gi";
 import { FiWifi, FiWifiOff } from "react-icons/fi";
 import Close from "../components/Close";
+import Divider from "../components/Divider";
 
-export default function Header() {
+export default function Header({ isCurrent, setIsCurrent }) {
   const [Sound, setSound] = useState(true);
-  const [HeaderDrop, setHeaderDrop] = useState(true);
+  const [HeaderDrop, setHeaderDrop] = useState(false);
   const [close, setClose] = useState(false);
 
   const [DATE, setDATE] = useState();
@@ -35,9 +36,14 @@ export default function Header() {
 
     // console.log(DATE);
   }, 1000);
+
+  const handlePowerClick = () => {
+    setClose(true);
+    setIsCurrent("close");
+  };
   return (
     <>
-      <Container>
+      <Container className={isCurrent === "close" ? "focused" : ""}>
         <div className="elements">Activities</div>
         <div className="elements">{DATE}</div>
         <div className="elements" onClick={() => setHeaderDrop(!HeaderDrop)}>
@@ -51,16 +57,41 @@ export default function Header() {
           </span>
           <div className={`elements_drop ${HeaderDrop ? "active" : ""}`}>
             <div className="elements_drop__element">
+              <span className="speaker" onClick={() => setSound(!Sound)}>
+                {Sound ? <GiSpeaker /> : <GiSpeakerOff />}
+              </span>
+              <input
+                type="range"
+                name="sound"
+                id="sound"
+                min="0"
+                max="10"
+                step="1"
+                value={Sound ? "10" : "0"}
+              />
+            </div>
+            <Divider />
+            <div className="elements_drop__element">
               {navigator.onLine ? <FiWifi /> : <FiWifiOff />}
               {navigator.onLine ? "You are Connected" : "No Internet"}
             </div>
-            <div className="elements_drop__element"><span onClick={()=>setSound(!Sound)}>{Sound ? <GiSpeaker /> : <GiSpeakerOff />}</span><input type="range" name="sound" id="sound" min="0" max="10" step="1" value={Sound ? "10": "0"} /></div>
-            <div className="elements_drop__element"></div>
-            <div className="elements_drop__element"></div>
+            <Divider />
+            <div className="elements_drop__element">
+              <span>
+                <MdOutlineSettings />
+              </span>{" "}
+              Settings
+            </div>
+            <div className="elements_drop__element" onClick={handlePowerClick}>
+              <span>
+                <MdPowerSettingsNew />
+              </span>{" "}
+              Power Off
+            </div>
           </div>
         </div>
       </Container>
-      {close === true && <Close setClose={setClose} />}
+      {close === true && <Close isCurrent={isCurrent} setClose={setClose} />}
     </>
   );
 }
@@ -98,17 +129,22 @@ const Container = styled.header`
       width: min(250px, 85vw);
       color: var(--nav-bg);
       border-radius: 4px;
+      z-index: 10000;
       &__element {
         padding: 10px;
         display: flex;
         align-items: center;
         gap: 16px;
-        &:not(:last-child) {
-          border-bottom: 1px solid var(--color-p-dark);
-        }
+        cursor: pointer;
         input {
           flex: 1;
           accent-color: var(--terminal-body);
+        }
+        span {
+          &.speaker {
+            font-size: 18px;
+            margin-top: 3px;
+          }
         }
       }
       &.active {
