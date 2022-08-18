@@ -4,20 +4,25 @@ import { BsFillTerminalFill } from "react-icons/bs";
 
 export default function Aside(props) {
   const handleTerminal = () => {
-    props.terminal
-      ? props.currentApp === "terminal"
+    if (props.terminal) {
+      props.currentApp === "terminal"
         ? props.setCurrentApp("")
-        : props.setCurrentApp("terminal")
-      : props.setTerminal(true);
+        : props.setCurrentApp("terminal");
+    } else {
+      props.setCurrentApp("terminal");
+      props.setTerminal(true);
+    }
   };
   return (
     <Container>
-      <span
-        className={`terminal ${props.terminal ? "hasTab" : ""}`}
-        onClick={handleTerminal}
-      >
-        <BsFillTerminalFill />
-      </span>
+      <div className="aside_top">
+        <span
+          className={`terminal ${props.terminal ? "hasTab" : ""}`}
+          onClick={handleTerminal}
+        >
+          <BsFillTerminalFill />
+        </span>
+      </div>
     </Container>
   );
 }
@@ -27,11 +32,16 @@ const Container = styled.aside`
   height: calc(100vh - 27px);
   width: 50px;
   padding: 8px;
+  display: flex;
+  justify-content: space-between;
   @media (min-width: 1441px) {
     width: calc(50px + 2vmin);
   }
-  & > span {
-    cursor: pointer;
+  .aside_top {
+    gap: "8px";
+    & > span {
+      cursor: pointer;
+    }
   }
   .terminal {
     color: var(--program-header);

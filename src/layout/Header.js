@@ -44,7 +44,7 @@ export default function Header({ isCurrent, setIsCurrent }) {
   return (
     <>
       <Container className={isCurrent === "close" ? "focused" : ""}>
-        <div className="elements">Activities</div>
+        <div className="elements">{isCurrent ? isCurrent : "Activities"}</div>
         <div className="elements">{DATE}</div>
         <div className="elements" onClick={() => setHeaderDrop(!HeaderDrop)}>
           <span>{navigator.onLine ? <FiWifi /> : <FiWifiOff />}</span>
@@ -110,6 +110,9 @@ const Container = styled.header`
     height: calc(27px + 2vmin);
   }
   .elements {
+    &:first-child {
+      text-transform: capitalize;
+    }
     &:nth-child(3) {
       display: flex;
       gap: 8px;
