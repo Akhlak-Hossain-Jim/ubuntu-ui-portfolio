@@ -16,8 +16,16 @@
   --blackTransparent: rgba(0, 0, 0, 0.5);
   --nav-bg: #1c1d1e;
   --nav-bg-transparent: #1c1d1ed9;
+  --golden: #f8b928;
+
   --terminal-header: #302e2e;
   --terminal-body: #300a24;
+
+  --github-bg: #24292e;
+  --github-dark: #1d2125;
+  --github-text: #f8f8f8;
+  --github-blue: #0366d6;
+
   --program-bg-p: #343434;
   --program-bg-s: #405714;
   --program-header: #2c2c2c;
@@ -56,5 +64,5 @@ body {
 }
 
 .focused {
-  z-index: 500;
+  z-index: 500 !important;
 }
