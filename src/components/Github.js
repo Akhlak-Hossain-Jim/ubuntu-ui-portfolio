@@ -9,6 +9,7 @@ import {
 } from "react-icons/bi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { GoMail } from "react-icons/go";
+import { SiLinktree } from "react-icons/si";
 
 export default function Github({
   showState,
@@ -113,10 +114,23 @@ export default function Github({
                       </p>
                     )}
                     {GithubData.blog && (
-                      <p>
+                      <a
+                        href={GithubData.blog}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <BiLink />
                         {GithubData.blog}
-                      </p>
+                      </a>
+                    )}
+                    {GithubData.login === "Akhlak-Hossain-Jim" && (
+                      <a
+                        href="https://linktr.ee/akhlakhossainjim"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <SiLinktree /> Linktree
+                      </a>
                     )}
                     {GithubData.email && (
                       <p>
@@ -261,6 +275,10 @@ const Container = styled.div`
           display: flex;
           flex-direction: column;
           gap: 12px;
+          & > a {
+            color: var(--github-text);
+            text-decoration: none;
+          }
         }
       }
     }
