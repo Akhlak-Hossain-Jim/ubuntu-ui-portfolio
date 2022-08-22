@@ -9,6 +9,7 @@ export default function Terminal({
   isCurrent,
   setIsCurrent,
   openGithub,
+  openSettings,
 }) {
   const [state, setState] = useState("");
   const [terminalText, setTerminalText] = useState([]);
@@ -79,6 +80,12 @@ export default function Terminal({
       setTimeout(() => {
         openGithub(true);
         setIsCurrent("github");
+      }, 1000);
+    } else if (input.toLowerCase() === "settings .") {
+      setTerminalText([...terminalText, `$ ${input}`]);
+      setTimeout(() => {
+        openSettings(true);
+        setIsCurrent("settings");
       }, 1000);
     } else {
       setTerminalText([

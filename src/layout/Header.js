@@ -7,7 +7,12 @@ import { FiWifi, FiWifiOff } from "react-icons/fi";
 import Close from "../components/Close";
 import Divider from "../components/Divider";
 
-export default function Header({ isCurrent, setIsCurrent, activity }) {
+export default function Header({
+  isCurrent,
+  setIsCurrent,
+  activity,
+  openSettings,
+}) {
   const [Sound, setSound] = useState(true);
   const [HeaderDrop, setHeaderDrop] = useState(false);
   const [close, setClose] = useState(false);
@@ -81,7 +86,10 @@ export default function Header({ isCurrent, setIsCurrent, activity }) {
               {navigator.onLine ? "You are Connected" : "No Internet"}
             </div>
             <Divider />
-            <div className="elements_drop__element">
+            <div
+              className="elements_drop__element"
+              onClick={() => openSettings(true)}
+            >
               <span>
                 <MdOutlineSettings />
               </span>{" "}

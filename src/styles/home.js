@@ -4,10 +4,11 @@ const HomeContainer = styled.main`
   /* max-width: 1440px; */
   margin: 0 auto;
   .body {
-    background-image: url(/bg/default.jpg);
+    background-image: ${({ background }) =>
+      background ? `url(/bg/${background}.webp)` : `url(/bg/default.webp)`};
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: top;
+    background-position: center;
     height: calc(100vh - 27px);
     display: flex;
     flex-direction: row;

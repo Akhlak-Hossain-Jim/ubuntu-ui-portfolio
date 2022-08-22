@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { BsFillTerminalFill } from "react-icons/bs";
 import { VscGithub } from "react-icons/vsc";
 import { CgMenuGridR } from "react-icons/cg";
+import { FcSettings } from "react-icons/fc";
 
 export default function Aside(props) {
   const { AllApps, setAllApps } = props;
@@ -28,6 +29,17 @@ export default function Aside(props) {
       props.setGithub(true);
     }
   };
+  const handleSetting = () => {
+    setAllApps(false);
+    if (props.settings) {
+      props.currentApp === "settings"
+        ? props.setCurrentApp("")
+        : props.setCurrentApp("settings");
+    } else {
+      props.setCurrentApp("settings");
+      props.setSettings(true);
+    }
+  };
 
   const AsideTop = () => {
     return (
@@ -45,6 +57,13 @@ export default function Aside(props) {
         >
           <VscGithub style={{ transform: "scale(1.1)", margin: "auto" }} />
           <span className="app_-name">Github</span>
+        </span>
+        <span
+          className={`settings ${props.settings ? "hasTab active" : ""}`}
+          onClick={handleSetting}
+        >
+          <FcSettings />
+          <span className="app_-name">Settings</span>
         </span>
       </div>
     );
@@ -122,6 +141,15 @@ const Container = styled.aside`
     display: flex;
     margin: 0 2px;
   }
+  .settings {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    &.active {
+      display: flex;
+    }
+  }
   .hasTab {
     position: relative;
     &:after {
@@ -158,7 +186,7 @@ const AllAppsContainer = styled.div`
   left: 50px;
   width: calc(100vw - 50px);
   height: calc(100vh - 27px);
-  background: rgba(0, 0, 0, 0.8);
+  background: var(--blackTransparent);
   backdrop-filter: blur(24px);
   z-index: 700;
   padding: 50px;
