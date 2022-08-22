@@ -43,6 +43,8 @@ export default function Github({
 
   const handleClose = () => {
     setIsCurrent("");
+    setInput("");
+    setName("Akhlak-Hossain-Jim");
     showApp(false);
   };
 

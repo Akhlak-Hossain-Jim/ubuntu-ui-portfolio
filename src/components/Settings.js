@@ -107,7 +107,6 @@ export default function Settings({
 
   const handleClose = () => {
     setIsCurrent("");
-    setState("");
     setCurrentTab(0);
     showApp(false);
   };
