@@ -13,7 +13,7 @@ function App() {
   const [currentApp, setCurrentApp] = useState("");
   const [showTerminal, setShowTerminal] = useState(false);
   const [showGithub, setShowGithub] = useState(false);
-  const [showSettings, setShowSettings] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
 
   return (
     <HomeContainer background={Background}>
