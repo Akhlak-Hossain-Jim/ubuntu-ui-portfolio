@@ -6,13 +6,19 @@ import Aside from "./layout/Aside";
 import Github from "./components/Github";
 
 function App() {
+  const [AllApps, setAllApps] = useState(false);
+
   const [currentApp, setCurrentApp] = useState("");
   const [showTerminal, setShowTerminal] = useState(false);
   const [showGithub, setShowGithub] = useState(false);
 
   return (
     <HomeContainer>
-      <Header isCurrent={currentApp} setIsCurrent={setCurrentApp} />
+      <Header
+        isCurrent={currentApp}
+        setIsCurrent={setCurrentApp}
+        activity={AllApps}
+      />
       <div className="body">
         <Aside
           setCurrentApp={setCurrentApp}
@@ -21,6 +27,8 @@ function App() {
           setTerminal={setShowTerminal}
           github={showGithub}
           setGithub={setShowGithub}
+          AllApps={AllApps}
+          setAllApps={setAllApps}
         />
         <main>
           <div className="bg" onClick={() => setCurrentApp("")}></div>

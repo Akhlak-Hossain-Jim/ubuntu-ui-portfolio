@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { BsFillTerminalFill } from "react-icons/bs";
 import { VscGithub } from "react-icons/vsc";
+import { CgMenuGridR } from "react-icons/cg";
 
 export default function Aside(props) {
+  const { AllApps, setAllApps } = props;
   const handleTerminal = () => {
+    setAllApps(false);
     if (props.terminal) {
       props.currentApp === "terminal"
         ? props.setCurrentApp("")
@@ -15,6 +18,7 @@ export default function Aside(props) {
     }
   };
   const handleGithub = () => {
+    setAllApps(false);
     if (props.github) {
       props.currentApp === "github"
         ? props.setCurrentApp("")
@@ -24,32 +28,52 @@ export default function Aside(props) {
       props.setGithub(true);
     }
   };
-  return (
-    <Container>
+
+  const AsideTop = () => {
+    return (
       <div className="aside_top">
         <span
           className={`terminal ${props.terminal ? "hasTab" : ""}`}
           onClick={handleTerminal}
         >
           <BsFillTerminalFill />
+          <span className="app_-name">Terminal</span>
         </span>
         <span
           className={`github ${props.github ? "hasTab" : ""}`}
           onClick={handleGithub}
         >
           <VscGithub style={{ transform: "scale(1.1)", margin: "auto" }} />
+          <span className="app_-name">Github</span>
         </span>
       </div>
-    </Container>
+    );
+  };
+  return (
+    <>
+      <Container>
+        <AsideTop />
+        <div className="aside_bottom" onClick={() => setAllApps(!AllApps)}>
+          <CgMenuGridR />
+        </div>
+      </Container>
+      {AllApps && (
+        <AllAppsContainer>
+          <h1>All apps</h1>
+          <AsideTop />
+        </AllAppsContainer>
+      )}
+    </>
   );
 }
 
 const Container = styled.aside`
+  position: relative;
   background-color: var(--nav-bg-transparent);
   height: calc(100vh - 27px);
   width: 50px;
-  padding: 8px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   @media (min-width: 1441px) {
     width: calc(50px + 2vmin);
@@ -58,9 +82,15 @@ const Container = styled.aside`
     display: flex;
     flex-direction: column;
     gap: 12px;
+    height: 100%;
+    overflow-y: auto;
+    padding: 8px;
     & > span {
       cursor: pointer;
       position: relative;
+      & > .app_-name {
+        display: none;
+      }
     }
   }
   .terminal {
@@ -73,8 +103,9 @@ const Container = styled.aside`
       position: absolute;
       top: 4px;
       height: 15px;
-      width: 100%;
+      width: 60%;
       top: 4px;
+      left: 2px;
       background-color: white;
       z-index: 1;
     }
@@ -89,6 +120,7 @@ const Container = styled.aside`
     font-size: 1.7rem;
     border-radius: 50%;
     display: flex;
+    margin: 0 2px;
   }
   .hasTab {
     position: relative;
@@ -98,11 +130,60 @@ const Container = styled.aside`
       width: 6px;
       top: 50%;
       left: auto;
-      right: -9px;
+      right: -8px;
       transform: translateY(-50%);
       aspect-ratio: 1/1;
       background-color: white;
       border-radius: 50%;
+    }
+  }
+  .aside_bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    aspect-ratio: 1/1;
+    backdrop-filter: blur(20px);
+    border-radius: 4px;
+    font-size: 28px;
+    &:hover {
+      background-color: var(--white-transparent);
+    }
+  }
+`;
+
+const AllAppsContainer = styled.div`
+  position: fixed;
+  top: 27px;
+  left: 50px;
+  width: calc(100vw - 50px);
+  height: calc(100vh - 27px);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(24px);
+  z-index: 700;
+  padding: 50px;
+  text-align: center;
+  & > h1 {
+    padding-bottom: 28px;
+  }
+  .aside_top {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 28px;
+    font-size: 32px;
+    & > span {
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      max-width: 50px;
+      & > .app_-name {
+        font-size: 16px;
+      }
     }
   }
 `;
