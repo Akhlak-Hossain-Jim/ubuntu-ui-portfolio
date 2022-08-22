@@ -7,6 +7,7 @@ import {
   BiLink,
   BiGitRepoForked,
 } from "react-icons/bi";
+import { FiTwitter } from "react-icons/fi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { GoMail } from "react-icons/go";
 import { SiLinktree } from "react-icons/si";
@@ -123,6 +124,15 @@ export default function Github({
                         {GithubData.blog}
                       </a>
                     )}
+                    {GithubData.twitter_username && (
+                      <a
+                        href={`https://twitter.com/${GithubData.twitter_username}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <FiTwitter />@{GithubData.twitter_username}
+                      </a>
+                    )}
                     {GithubData.login === "Akhlak-Hossain-Jim" && (
                       <a
                         href="https://linktr.ee/akhlakhossainjim"
@@ -133,10 +143,10 @@ export default function Github({
                       </a>
                     )}
                     {GithubData.email && (
-                      <p>
+                      <a href={`mailto:${GithubData.email}`}>
                         <GoMail />
                         {GithubData.email}
-                      </p>
+                      </a>
                     )}
                     {GithubData.public_repos && (
                       <p>
