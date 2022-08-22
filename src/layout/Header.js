@@ -7,7 +7,7 @@ import { FiWifi, FiWifiOff } from "react-icons/fi";
 import Close from "../components/Close";
 import Divider from "../components/Divider";
 
-export default function Header({ isCurrent, setIsCurrent }) {
+export default function Header({ isCurrent, setIsCurrent, activity }) {
   const [Sound, setSound] = useState(true);
   const [HeaderDrop, setHeaderDrop] = useState(false);
   const [close, setClose] = useState(false);
@@ -44,9 +44,14 @@ export default function Header({ isCurrent, setIsCurrent }) {
   return (
     <>
       <Container className={isCurrent === "close" ? "focused" : ""}>
-        <div className="elements">{isCurrent ? isCurrent : "Activities"}</div>
+        <div className={`elements ${activity ? "active" : ""}`}>
+          {isCurrent ? isCurrent : "Activities"}
+        </div>
         <div className="elements">{DATE}</div>
-        <div className="elements" onClick={() => setHeaderDrop(!HeaderDrop)}>
+        <div
+          className={`elements ${HeaderDrop ? "active" : ""}`}
+          onClick={() => setHeaderDrop(!HeaderDrop)}
+        >
           <span>{navigator.onLine ? <FiWifi /> : <FiWifiOff />}</span>
           <span>{Sound ? <GiSpeaker /> : <GiSpeakerOff />}</span>
           <span>
@@ -119,6 +124,20 @@ const Container = styled.header`
       position: relative;
       span {
         cursor: pointer;
+      }
+    }
+    &.active {
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 140%;
+        height: 2px;
+        background-color: var(--orange);
+        border-radius: 4px;
       }
     }
     &_drop {
