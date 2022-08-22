@@ -5,15 +5,25 @@ import Terminal from "./components/Terminal";
 import Aside from "./layout/Aside";
 import Github from "./components/Github";
 import Settings from "./components/Settings";
+import Install from "./components/Install";
 
 function App() {
   const [AllApps, setAllApps] = useState(false);
   const [Background, setBackground] = useState("default");
 
+  const [deferredPrompt, setDeferredPrompt] = useState();
+
   const [currentApp, setCurrentApp] = useState("");
   const [showTerminal, setShowTerminal] = useState(false);
   const [showGithub, setShowGithub] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [showInstall, setShowInstall] = useState(false);
+
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    setDeferredPrompt(e);
+    setShowInstall(true);
+  });
 
   return (
     <HomeContainer background={Background}>
@@ -38,6 +48,12 @@ function App() {
         />
         <main>
           <div className="bg" onClick={() => setCurrentApp("")}></div>
+          <Install
+            deferredPrompt={deferredPrompt}
+            setDeferredPrompt={setDeferredPrompt}
+            setShowInstall={setShowInstall}
+            showInstall={showInstall}
+          />
           <Terminal
             showState={showTerminal}
             showApp={setShowTerminal}
