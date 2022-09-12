@@ -88,6 +88,19 @@ export default function Header({
             <Divider />
             <div
               className="elements_drop__element"
+              onClick={() =>
+                document.fullscreen
+                  ? document.exitFullscreen()
+                  : document.body.requestFullscreen()
+              }
+            >
+              <span>
+                <MdOutlineSettings />
+              </span>{" "}
+              {document.fullscreen ? "Exit Full Screen" : "Entire Full Screen"}
+            </div>
+            <div
+              className="elements_drop__element"
               onClick={() => openSettings(true)}
             >
               <span>
