@@ -7,12 +7,16 @@ import { FiWifi, FiWifiOff } from "react-icons/fi";
 import Close from "../components/Close";
 import Divider from "../components/Divider";
 
-export default function Header({
-  isCurrent,
-  setIsCurrent,
-  activity,
-  openSettings,
-}) {
+import useApp from "../store";
+
+export default function Header() {
+  const { currentApp, allApps, updateCurrentApp, updateShowSetting } = useApp();
+
+  const isCurrent = currentApp;
+  const setIsCurrent = (value) => updateCurrentApp(value);
+  const activity = allApps;
+  const openSettings = (value) => updateShowSetting(value);
+
   const [Sound, setSound] = useState(true);
   const [HeaderDrop, setHeaderDrop] = useState(false);
   const [close, setClose] = useState(false);
@@ -78,6 +82,7 @@ export default function Header({
                 max="10"
                 step="1"
                 value={Sound ? "10" : "0"}
+                onChange={(e) => console.log(e)}
               />
             </div>
             <Divider />
