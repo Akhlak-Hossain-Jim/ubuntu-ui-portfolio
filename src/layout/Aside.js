@@ -1,43 +1,58 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { BsFillTerminalFill } from "react-icons/bs";
 import { VscGithub } from "react-icons/vsc";
 import { CgMenuGridR } from "react-icons/cg";
 import { FcSettings } from "react-icons/fc";
+import useApp from "../store";
 
-export default function Aside(props) {
-  const { AllApps, setAllApps } = props;
+export default function Aside() {
+  const {
+    allApps,
+    updateAllApp,
+    currentApp,
+    updateCurrentApp,
+    showTerminal,
+    updateShowTerminal,
+    showGithub,
+    updateShowGithub,
+    showSetting,
+    updateShowSetting,
+  } = useApp();
+
+  const setAllApps = (value) => updateAllApp(value);
+
   const handleTerminal = () => {
     setAllApps(false);
-    if (props.terminal) {
-      props.currentApp === "terminal"
-        ? props.setCurrentApp("")
-        : props.setCurrentApp("terminal");
+    if (showTerminal) {
+      currentApp === "terminal"
+        ? updateCurrentApp("")
+        : updateCurrentApp("terminal");
     } else {
-      props.setCurrentApp("terminal");
-      props.setTerminal(true);
+      updateCurrentApp("terminal");
+      updateShowTerminal(true);
     }
   };
   const handleGithub = () => {
     setAllApps(false);
-    if (props.github) {
-      props.currentApp === "github"
-        ? props.setCurrentApp("")
-        : props.setCurrentApp("github");
+    if (showGithub) {
+      currentApp === "github"
+        ? updateCurrentApp("")
+        : updateCurrentApp("github");
     } else {
-      props.setCurrentApp("github");
-      props.setGithub(true);
+      updateCurrentApp("github");
+      updateShowGithub(true);
     }
   };
   const handleSetting = () => {
     setAllApps(false);
-    if (props.settings) {
-      props.currentApp === "settings"
-        ? props.setCurrentApp("")
-        : props.setCurrentApp("settings");
+    if (showSetting) {
+      currentApp === "settings"
+        ? updateCurrentApp("")
+        : updateCurrentApp("settings");
     } else {
-      props.setCurrentApp("settings");
-      props.setSettings(true);
+      updateCurrentApp("settings");
+      updateShowSetting(true);
     }
   };
 
@@ -45,21 +60,21 @@ export default function Aside(props) {
     return (
       <div className="aside_top">
         <span
-          className={`terminal ${props.terminal ? "hasTab" : ""}`}
+          className={`terminal ${showTerminal ? "hasTab" : ""}`}
           onClick={handleTerminal}
         >
           <BsFillTerminalFill />
           <span className="app_-name">Terminal</span>
         </span>
         <span
-          className={`github ${props.github ? "hasTab" : ""}`}
+          className={`github ${showGithub ? "hasTab" : ""}`}
           onClick={handleGithub}
         >
           <VscGithub style={{ transform: "scale(1.1)", margin: "auto" }} />
           <span className="app_-name">Github</span>
         </span>
         <span
-          className={`settings ${props.settings ? "hasTab active" : ""}`}
+          className={`settings ${showSetting ? "hasTab active" : ""}`}
           onClick={handleSetting}
         >
           <FcSettings />
@@ -72,11 +87,11 @@ export default function Aside(props) {
     <>
       <Container>
         <AsideTop />
-        <div className="aside_bottom" onClick={() => setAllApps(!AllApps)}>
+        <div className="aside_bottom" onClick={() => setAllApps(!allApps)}>
           <CgMenuGridR />
         </div>
       </Container>
-      {AllApps && (
+      {allApps && (
         <AllAppsContainer>
           <h1>All apps</h1>
           <AsideTop />
