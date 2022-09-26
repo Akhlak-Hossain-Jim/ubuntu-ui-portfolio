@@ -1,7 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import useApp from "../store";
 
-export default function Close({ close, setClose, isCurrent }) {
+export default function Close({ setClose, isCurrent }) {
+  const { updateCurrentApp } = useApp();
+
+  const handleCancel = () => {
+    updateCurrentApp("");
+    setClose(false);
+  };
   return (
     <Container className={isCurrent ? "focused" : ""}>
       <div className="close_container">
@@ -25,7 +32,7 @@ export default function Close({ close, setClose, isCurrent }) {
             </button>
             <button
               className="close_container__body_line-button"
-              onClick={() => setClose(false)}
+              onClick={() => handleCancel()}
             >
               Cancel
             </button>
