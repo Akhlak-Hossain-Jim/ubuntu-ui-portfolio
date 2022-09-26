@@ -6,19 +6,14 @@ import Aside from "./layout/Aside";
 import Github from "./components/Github";
 import Settings from "./components/Settings";
 import Install from "./components/Install";
+import useApp from "./store";
 
 function App() {
-  const [AllApps, setAllApps] = useState(false);
+  const { updateCurrentApp } = useApp();
   const [Background, setBackground] = useState("default");
 
   const [deferredPrompt, setDeferredPrompt] = useState();
-
-  const [currentApp, setCurrentApp] = useState("");
-  const [showTerminal, setShowTerminal] = useState(false);
-  const [showGithub, setShowGithub] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
   const [showInstall, setShowInstall] = useState(false);
-
   window.addEventListener("beforeinstallprompt", (e) => {
     e.preventDefault();
     setDeferredPrompt(e);
@@ -27,55 +22,20 @@ function App() {
 
   return (
     <HomeContainer background={Background}>
-      <Header
-        isCurrent={currentApp}
-        setIsCurrent={setCurrentApp}
-        activity={AllApps}
-        openSettings={setShowSettings}
-      />
+      <Header />
       <div className="body">
-        <Aside
-          setCurrentApp={setCurrentApp}
-          currentApp={currentApp}
-          terminal={showTerminal}
-          setTerminal={setShowTerminal}
-          github={showGithub}
-          setGithub={setShowGithub}
-          settings={showSettings}
-          setSettings={setShowSettings}
-          AllApps={AllApps}
-          setAllApps={setAllApps}
-        />
+        <Aside />
         <main>
-          <div className="bg" onClick={() => setCurrentApp("")}></div>
+          <div className="bg" onClick={() => updateCurrentApp("")}></div>
           <Install
             deferredPrompt={deferredPrompt}
             setDeferredPrompt={setDeferredPrompt}
             setShowInstall={setShowInstall}
             showInstall={showInstall}
           />
-          <Terminal
-            showState={showTerminal}
-            showApp={setShowTerminal}
-            isCurrent={currentApp}
-            setIsCurrent={setCurrentApp}
-            openGithub={setShowGithub}
-            openSettings={setShowSettings}
-          />
-          <Github
-            showState={showGithub}
-            showApp={setShowGithub}
-            isCurrent={currentApp}
-            setIsCurrent={setCurrentApp}
-          />
-          <Settings
-            showState={showSettings}
-            showApp={setShowSettings}
-            isCurrent={currentApp}
-            setIsCurrent={setCurrentApp}
-            setBackground={setBackground}
-            Background={Background}
-          />
+          <Terminal />
+          <Github />
+          <Settings setBackground={setBackground} Background={Background} />
         </main>
       </div>
     </HomeContainer>
