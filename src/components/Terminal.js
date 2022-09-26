@@ -2,15 +2,17 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { AiOutlineMinus, AiOutlineClose } from "react-icons/ai";
 import { BiCopy } from "react-icons/bi";
+import useApp from "../store";
 
-export default function Terminal({
-  showState,
-  showApp,
-  isCurrent,
-  setIsCurrent,
-  openGithub,
-  openSettings,
-}) {
+export default function Terminal() {
+  const {
+    currentApp,
+    updateCurrentApp,
+    showTerminal,
+    updateShowTerminal,
+    updateShowGithub,
+    updateShowSetting,
+  } = useApp();
   const [state, setState] = useState("");
   const [terminalText, setTerminalText] = useState([]);
   const [input, setInput] = useState([""]);
@@ -25,6 +27,7 @@ export default function Terminal({
     "'code . to open the code",
     "'portfolio .' to open up Akhlak's Portfolio",
     "'github .' to open up Github instance",
+    "'settings .' to open up settings",
     "'help' to get help",
   ];
 
@@ -52,7 +55,7 @@ export default function Terminal({
     } else if (input.toLowerCase() === "exit") {
       setTerminalText([...terminalText, `$ ${input}`]);
       setTimeout(() => {
-        showApp(false);
+        updateShowTerminal(false);
       }, 1000);
     } else if (input.toLowerCase() === "code .") {
       setTerminalText([
@@ -78,14 +81,14 @@ export default function Terminal({
     } else if (input.toLowerCase() === "github .") {
       setTerminalText([...terminalText, `$ ${input}`]);
       setTimeout(() => {
-        openGithub(true);
-        setIsCurrent("github");
+        updateShowGithub(true);
+        updateCurrentApp("github");
       }, 1000);
     } else if (input.toLowerCase() === "settings .") {
       setTerminalText([...terminalText, `$ ${input}`]);
       setTimeout(() => {
-        openSettings(true);
-        setIsCurrent("settings");
+        updateShowSetting(true);
+        updateCurrentApp("settings");
       }, 1000);
     } else {
       setTerminalText([
@@ -100,12 +103,12 @@ export default function Terminal({
 
   const handleMinimize = () => {
     setState("minimize");
-    setIsCurrent("");
+    updateCurrentApp("");
   };
 
   const handleClose = () => {
-    showApp(false);
-    setIsCurrent("");
+    updateShowTerminal(false);
+    updateCurrentApp("");
   };
 
   useEffect(() => {
@@ -114,16 +117,16 @@ export default function Terminal({
   }, [terminalText]);
 
   useEffect(() => {
-    state === "minimize" && isCurrent === "terminal" && setState("");
-  }, [isCurrent]);
+    state === "minimize" && currentApp === "terminal" && setState("");
+  }, [currentApp]);
 
   return (
     <>
-      {showState && (
+      {showTerminal && (
         <Container
-          className={`${state} ${isCurrent === "terminal" ? "focused" : ""}`}
-          onClick={() => setIsCurrent("terminal")}
-          onFocus={() => setIsCurrent("terminal")}
+          className={`${state} ${currentApp === "terminal" ? "focused" : ""}`}
+          onClick={() => updateCurrentApp("terminal")}
+          onFocus={() => updateCurrentApp("terminal")}
         >
           <div className="terminal_header">
             <span onClick={handleMinimize}>
