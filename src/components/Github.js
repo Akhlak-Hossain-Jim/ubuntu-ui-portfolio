@@ -11,13 +11,11 @@ import { FiTwitter } from "react-icons/fi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { GoMail } from "react-icons/go";
 import { SiLinktree } from "react-icons/si";
+import useApp from "../store";
 
-export default function Github({
-  showState,
-  showApp,
-  isCurrent,
-  setIsCurrent,
-}) {
+export default function Github() {
+  const { showGithub, updateShowGithub, currentApp, updateCurrentApp } =
+    useApp();
   const [state, setState] = useState("");
   const [Input, setInput] = useState();
   const [Name, setName] = useState("Akhlak-Hossain-Jim");
@@ -29,35 +27,33 @@ export default function Github({
       .then((data) => setGithubData(data));
   }, [Name]);
 
-  console.log(GithubData);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     Input && Input.length > 0 && setName(Input);
   };
 
   const handleMinimize = () => {
-    setIsCurrent("");
+    updateCurrentApp("");
     setState("minimize");
   };
 
   const handleClose = () => {
-    setIsCurrent("");
+    updateCurrentApp("");
     setInput("");
     setName("Akhlak-Hossain-Jim");
-    showApp(false);
+    updateShowGithub(false);
   };
 
   useEffect(() => {
-    state === "minimize" && isCurrent === "github" && setState("");
-  }, [isCurrent]);
+    state === "minimize" && currentApp === "github" && setState("");
+  }, [currentApp]);
 
   return (
     <>
-      {showState && (
+      {showGithub && (
         <Container
-          className={`${state} ${isCurrent === "github" ? "focused" : ""}`}
-          onClick={() => setIsCurrent("github")}
+          className={`${state} ${currentApp === "github" ? "focused" : ""}`}
+          onClick={() => updateCurrentApp("github")}
         >
           <div className="github_header">
             <span onClick={handleMinimize}>
