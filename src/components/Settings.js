@@ -11,15 +11,11 @@ import { FaGlobeEurope, FaTelegramPlane } from "react-icons/fa";
 import { MdMonitor } from "react-icons/md";
 import { GiWrappingStar } from "react-icons/gi";
 import { VscRepoForked, VscStarEmpty } from "react-icons/vsc";
+import useApp from "../store";
 
-export default function Settings({
-  showState,
-  showApp,
-  isCurrent,
-  setIsCurrent,
-  Background,
-  setBackground,
-}) {
+export default function Settings({ Background, setBackground }) {
+  const { showSetting, updateShowSetting, currentApp, updateCurrentApp } =
+    useApp();
   const [state, setState] = useState("");
   const [CurrentTab, setCurrentTab] = useState(0);
   const [Navigator] = useState(navigator);
@@ -101,26 +97,26 @@ export default function Settings({
   ];
 
   const handleMinimize = () => {
-    setIsCurrent("");
+    updateCurrentApp("");
     setState("minimize");
   };
 
   const handleClose = () => {
-    setIsCurrent("");
+    updateCurrentApp("");
     setCurrentTab(0);
-    showApp(false);
+    updateShowSetting(false);
   };
 
   useEffect(() => {
-    state === "minimize" && isCurrent === "settings" && setState("");
-  }, [isCurrent]);
+    state === "minimize" && currentApp === "settings" && setState("");
+  }, [currentApp]);
 
   return (
     <>
-      {showState && (
+      {showSetting && (
         <Container
-          className={`${state} ${isCurrent === "settings" ? "focused" : ""}`}
-          onClick={() => setIsCurrent("settings")}
+          className={`${state} ${currentApp === "settings" ? "focused" : ""}`}
+          onClick={() => updateCurrentApp("settings")}
         >
           <div className="settings_header">
             <p className="settings_header__name">Settings</p>
