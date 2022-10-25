@@ -47,11 +47,11 @@
   --p-font: 14px;
 }
 
-@media (min-width: 1441px) {
+/* @media (min-width: 1536px) {
   :root {
     --p-font: calc(14px + 2vmin);
   }
-}
+} */
 
 body {
   background-color: black;

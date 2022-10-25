@@ -53,10 +53,10 @@ const Container = styled.div`
   top: 27px;
   left: 50px;
   background-color: var(--blackTransparent);
-  @media (min-width: 1441px) {
+  /* @media (min-width: 1536px) {
     left: calc(50px + 2vmin);
     top: calc(27px + 2vmin);
-  }
+  } */
   .close_container {
     width: min(95%, 500px);
   }

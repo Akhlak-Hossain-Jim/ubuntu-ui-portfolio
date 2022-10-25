@@ -109,9 +109,9 @@ const Container = styled.aside`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  @media (min-width: 1441px) {
+  /* @media (min-width: 1536px) {
     width: calc(50px + 2vmin);
-  }
+  } */
   .aside_top {
     display: flex;
     flex-direction: column;

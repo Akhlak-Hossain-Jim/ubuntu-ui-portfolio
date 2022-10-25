@@ -137,9 +137,9 @@ const Container = styled.header`
   padding-left: 10px;
   padding-right: 10px;
   font-size: var(--p-font);
-  @media (min-width: 1441px) {
+  /* @media (min-width: 1536px) {
     height: calc(27px + 2vmin);
-  }
+  } */
   .elements {
     &:first-child {
       text-transform: capitalize;
