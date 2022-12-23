@@ -33,70 +33,81 @@ export default function Terminal() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (input.toLowerCase() === "clear") {
-      setTerminalText([""]);
-    } else if (input.toLowerCase() === "help") {
-      setTerminalText([...terminalText, `$ ${input}`, ...useableCommands]);
-    } else if (input.toLowerCase() === "reboot") {
-      setTerminalText([...terminalText, `$ ${input}`, "rebooting..."]);
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
-    } else if (input.toLowerCase() === "boot") {
-      setTerminalText([
-        ...terminalText,
-        `$ ${input}`,
-        "might not work in mobile or tablet",
-        "Shuting down...",
-      ]);
-      setTimeout(() => {
-        window.close();
-      }, 2000);
-    } else if (input.toLowerCase() === "exit") {
-      setTerminalText([...terminalText, `$ ${input}`]);
-      setTimeout(() => {
-        updateShowTerminal(false);
-      }, 1000);
-    } else if (input.toLowerCase() === "code .") {
-      setTerminalText([
-        ...terminalText,
-        `$ ${input}`,
-        "opening github link...",
-      ]);
-      setTimeout(() => {
-        window.open(
-          "https://github.com/Akhlak-Hossain-Jim/ubuntu-ui-portfolio",
-          "_blank"
-        );
-      }, 1000);
-    } else if (input.toLowerCase() === "portfolio .") {
-      setTerminalText([
-        ...terminalText,
-        `$ ${input}`,
-        "opening github link...",
-      ]);
-      setTimeout(() => {
-        window.open("https://ahjim.com", "_blank");
-      }, 1000);
-    } else if (input.toLowerCase() === "github .") {
-      setTerminalText([...terminalText, `$ ${input}`]);
-      setTimeout(() => {
-        updateShowGithub(true);
-        updateCurrentApp("github");
-      }, 1000);
-    } else if (input.toLowerCase() === "settings .") {
-      setTerminalText([...terminalText, `$ ${input}`]);
-      setTimeout(() => {
-        updateShowSetting(true);
-        updateCurrentApp("settings");
-      }, 1000);
-    } else {
-      setTerminalText([
-        ...terminalText,
-        `$ ${input}`,
-        `Command '${input}' not found,`,
-        `try 'help' for available command list`,
-      ]);
+    switch (input.toLowerCase()) {
+      case "clear":
+        setTerminalText([""]);
+        break;
+      case "help":
+        setTerminalText([...terminalText, `$ ${input}`, ...useableCommands]);
+        break;
+      case "reboot":
+        setTerminalText([...terminalText, `$ ${input}`, "rebooting..."]);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+        break;
+      case "boot":
+        setTerminalText([
+          ...terminalText,
+          `$ ${input}`,
+          "might not work in mobile or tablet",
+          "Shuting down...",
+        ]);
+        setTimeout(() => {
+          window.close();
+        }, 2000);
+        break;
+      case "exit":
+        setTerminalText([...terminalText, `$ ${input}`]);
+        setTimeout(() => {
+          updateShowTerminal(false);
+        }, 1000);
+        break;
+      case "code .":
+        setTerminalText([
+          ...terminalText,
+          `$ ${input}`,
+          "opening github link...",
+        ]);
+        setTimeout(() => {
+          window.open(
+            "https://github.com/Akhlak-Hossain-Jim/ubuntu-ui-portfolio",
+            "_blank"
+          );
+        }, 1000);
+        break;
+      case "portfolio .":
+        setTerminalText([
+          ...terminalText,
+          `$ ${input}`,
+          "opening github link...",
+        ]);
+        setTimeout(() => {
+          window.open("https://ahjim.com", "_blank");
+        }, 1000);
+        break;
+      case "github .":
+        setTerminalText([...terminalText, `$ ${input}`]);
+        setTimeout(() => {
+          updateShowGithub(true);
+          updateCurrentApp("github");
+        }, 1000);
+        break;
+      case "settings .":
+        setTerminalText([...terminalText, `$ ${input}`]);
+        setTimeout(() => {
+          updateShowSetting(true);
+          updateCurrentApp("settings");
+        }, 1000);
+        break;
+      default:
+        setTerminalText([
+          ...terminalText,
+          `$ ${input}`,
+          `Command '${input}' not found,`,
+          `try 'help' for available command list`,
+        ]);
+        break;
     }
     setInput("");
   };
