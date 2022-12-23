@@ -15,11 +15,15 @@ export default function Github() {
   const [Input, setInput] = useState();
   const [Name, setName] = useState("Akhlak-Hossain-Jim");
   const [GithubData, setGithubData] = useState();
+  const [GithubOrgData, setGithubOrgData] = useState([]);
 
   useEffect(() => {
     fetch(`https://api.github.com/users/${Name}`)
       .then((res) => res.json())
       .then((data) => setGithubData(data));
+    fetch(`https://api.github.com/users/${Name}/orgs`)
+      .then((res) => res.json())
+      .then((data) => setGithubOrgData(data));
   }, [Name]);
 
   const handleSubmit = (e) => {
@@ -94,6 +98,25 @@ export default function Github() {
                     {GithubData.name && <h3>{GithubData.name}</h3>}
                     {GithubData.login && <p>{GithubData.login}</p>}
                     {GithubData.bio && <p>{GithubData.bio}</p>}
+                    {GithubOrgData &&
+                      Array.isArray(GithubOrgData) &&
+                      GithubOrgData.length > 0 && (
+                        <div className="github_body__profile_info__element_orgs">
+                          {React.Children.toArray(
+                            GithubOrgData.map((org) => (
+                              <a
+                                className="github_body__profile_info__element_orgs__image"
+                                href={`http://github.com/${org.login}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-tooltip={org.login}
+                              >
+                                <img src={org.avatar_url} alt={org.login} />
+                              </a>
+                            ))
+                          )}
+                        </div>
+                      )}
                   </div>
                   <div className="github_body__profile_info__element">
                     {GithubData.location && (
@@ -164,11 +187,11 @@ export default function Github() {
 const Container = styled.div`
   position: absolute;
   background-color: var(--github-bg);
-  top: 5%;
-  left: 5%;
+  top: 2%;
+  left: 2%;
   border-radius: 12px;
   width: min(800px, 100%);
-  height: auto;
+  height: min(570px, 100%);
   overflow: none;
   overflow-y: auto;
   z-index: 2;
@@ -286,6 +309,21 @@ const Container = styled.div`
             & > * {
               vertical-align: middle;
               margin-right: 4px;
+            }
+          }
+          &_orgs {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            &__image {
+              width: 32px;
+              & > img {
+                width: 100%;
+                height: auto;
+                border-radius: 6px;
+                box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+              }
             }
           }
         }

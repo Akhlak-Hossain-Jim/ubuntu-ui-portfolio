@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { AiOutlineCaretDown } from "react-icons/ai";
+import { BsArrowsFullscreen, BsFullscreenExit } from "react-icons/bs";
 import { MdPowerSettingsNew, MdOutlineSettings } from "react-icons/md";
 import { GiSpeaker, GiSpeakerOff } from "react-icons/gi";
 import { FiWifi, FiWifiOff } from "react-icons/fi";
@@ -100,7 +101,11 @@ export default function Header() {
               }
             >
               <span>
-                <MdOutlineSettings />
+                {document.fullscreen ? (
+                  <BsFullscreenExit />
+                ) : (
+                  <BsArrowsFullscreen />
+                )}
               </span>{" "}
               {document.fullscreen ? "Exit Full Screen" : "Entire Full Screen"}
             </div>
