@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AiOutlineMinus, AiOutlineClose } from "react-icons/ai";
-import {
-  BiCopy,
-  BiBuildingHouse,
-  BiLink,
-  BiGitRepoForked,
-} from "react-icons/bi";
+import { BiCopy, BiBuildingHouse, BiLink } from "react-icons/bi";
 import { FiTwitter } from "react-icons/fi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import { GoMail } from "react-icons/go";
+import { GoMail, GoRepo } from "react-icons/go";
 import { SiLinktree } from "react-icons/si";
 import useApp from "../store";
 
@@ -148,7 +143,7 @@ export default function Github() {
                     )}
                     {GithubData.public_repos && (
                       <p>
-                        <BiGitRepoForked /> {GithubData.public_repos}
+                        <GoRepo /> {GithubData.public_repos}
                       </p>
                     )}
                   </div>
@@ -273,8 +268,8 @@ const Container = styled.div`
       }
       &_info {
         display: grid;
-        width: min(600px, 100%);
-        grid-template-columns: 1fr 1fr;
+        width: min(500px, 100%);
+        grid-template-columns: 2fr 1fr;
         gap: 16px;
         @media (max-width: 600px) {
           grid-template-columns: 1fr;
@@ -283,9 +278,15 @@ const Container = styled.div`
           display: flex;
           flex-direction: column;
           gap: 12px;
-          & > a {
+          & > a,
+          & > p {
             color: var(--github-text);
             text-decoration: none;
+            word-break: break-all;
+            & > * {
+              vertical-align: middle;
+              margin-right: 4px;
+            }
           }
         }
       }
