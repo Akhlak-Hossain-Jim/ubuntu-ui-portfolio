@@ -21,15 +21,16 @@ export default function Terminal() {
   const body = useRef();
 
   const useableCommands = [
-    "'clear' to clear the terminal",
-    "'exit' to close the terminal",
-    "'reboot' to reload the window",
+    "'about' to open up Akhlak's About",
     "'boot' to close the window",
+    "'clear' to clear the terminal",
     "'code . to open the code",
-    "'portfolio .' to open up Akhlak's Portfolio",
+    "'exit' to close the terminal",
     "'github .' to open up Github instance",
-    "'settings .' to open up settings",
     "'help' to get help",
+    "'portfolio .' to open up Akhlak's Portfolio",
+    "'reboot' to reload the window",
+    "'settings .' to open up settings",
   ];
 
   const handleSubmit = (e) => {
