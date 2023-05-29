@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import {
-  AiOutlineMinus,
-  AiOutlineClose,
-  AiOutlineCloud,
-  AiOutlineGithub,
-} from "react-icons/ai";
-import { BiCopy } from "react-icons/bi";
+import { AiOutlineCloud, AiOutlineGithub } from "react-icons/ai";
 import { FaGlobeEurope, FaTelegramPlane } from "react-icons/fa";
 import { MdMonitor } from "react-icons/md";
 import { GiWrappingStar } from "react-icons/gi";
 import { VscRepoForked, VscStarEmpty } from "react-icons/vsc";
 import useApp from "../store";
+import SoftContainer from "./SoftContainer";
 
 export default function Settings({ Background, setBackground }) {
-  const { showSetting, updateShowSetting, currentApp, updateCurrentApp } =
-    useApp();
-  const [state, setState] = useState("");
+  const { showSetting, updateShowSetting } = useApp();
   const [CurrentTab, setCurrentTab] = useState(0);
   const [Navigator] = useState(navigator);
 
@@ -96,47 +89,15 @@ export default function Settings({ Background, setBackground }) {
     },
   ];
 
-  const handleMinimize = () => {
-    updateCurrentApp("");
-    setState("minimize");
-  };
-
-  const handleClose = () => {
-    updateCurrentApp("");
-    setCurrentTab(0);
-    updateShowSetting(false);
-  };
-
-  useEffect(() => {
-    state === "minimize" && currentApp === "settings" && setState("");
-  }, [currentApp]);
-
   return (
     <>
       {showSetting && (
-        <Container
-          className={`${state} ${currentApp === "settings" ? "focused" : ""}`}
-          onClick={() => updateCurrentApp("settings")}
+        <SoftContainer
+          name={"Settings"}
+          showApp={showSetting}
+          updateShowApp={updateShowSetting}
         >
-          <div className="settings_header">
-            <p className="settings_header__name">Settings</p>
-            <div className="settings_header__actions">
-              <span onClick={handleMinimize}>
-                <AiOutlineMinus />
-              </span>
-              <span
-                onClick={() =>
-                  state === "" ? setState("maximize") : setState("")
-                }
-              >
-                <BiCopy />
-              </span>
-              <span onClick={handleClose}>
-                <AiOutlineClose />
-              </span>
-            </div>
-          </div>
-          <div className="settings_body">
+          <Container className="">
             <div className="settings_body__nav">
               {React.Children.toArray(
                 CONTENTS.map((data, index) => (
@@ -293,74 +254,21 @@ export default function Settings({ Background, setBackground }) {
                 }[CurrentTab]
               }
             </div>
-          </div>
-        </Container>
+          </Container>
+        </SoftContainer>
       )}
     </>
   );
 }
 
 const Container = styled.div`
-  position: absolute;
-  background-color: var(--github-bg);
-  top: 5%;
-  left: 5%;
-  border-radius: 12px;
-  width: min(800px, 100%);
-  z-index: 2;
-  height: 80%;
-  @media (max-height: 600px) {
-    height: 100%;
-  }
-  @media (max-width: 900px) {
-    top: 0;
-    left: 0;
-  }
-  &.minimize {
-    width: 0;
-    height: 0;
-    overflow: hidden;
-  }
-  &.maximize {
-    width: 100%;
-    height: 100%;
-    max-height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-  .settings_header {
-    background-color: var(--program-header);
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 10px;
-    border-radius: 12px 12px 0 0;
-    top: 0;
-    z-index: 1;
-    &__name {
-      font-weight: 400;
-    }
-    &__actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      span {
-        cursor: pointer;
-      }
-    }
+  display: grid;
+  grid-template-columns: 3fr 9fr;
+  height: 100%;
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr 2fr;
   }
   .settings_body {
-    background-color: var(--program-bg-p);
-    display: grid;
-    grid-template-columns: 3fr 9fr;
-    height: 100%;
-    @media (max-width: 600px) {
-      grid-template-columns: 1fr 2fr;
-    }
     &__nav {
       height: 100%;
       overflow-y: auto;
