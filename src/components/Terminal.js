@@ -12,6 +12,7 @@ export default function Terminal() {
     updateShowTerminal,
     updateShowGithub,
     updateShowSetting,
+    updateShowAbout,
   } = useApp();
   const [state, setState] = useState("");
   const [terminalText, setTerminalText] = useState([]);
@@ -87,17 +88,26 @@ export default function Terminal() {
         }, 1000);
         break;
       case "github .":
-        setTerminalText([...terminalText, `$ ${input}`]);
+        setTerminalText([...terminalText, `$ ${input}`, `Opening Github App`]);
         setTimeout(() => {
           updateShowGithub(true);
           updateCurrentApp("github");
         }, 1000);
         break;
       case "settings .":
-        setTerminalText([...terminalText, `$ ${input}`]);
+        setTerminalText([...terminalText, `$ ${input}`, `Opening Settings...`]);
         setTimeout(() => {
           updateShowSetting(true);
           updateCurrentApp("settings");
+        }, 1000);
+        break;
+      case "about .":
+      case "About":
+      case "about":
+        setTerminalText([...terminalText, `$ ${input}`, `Opening about...`]);
+        setTimeout(() => {
+          updateShowAbout(true);
+          updateCurrentApp("About");
         }, 1000);
         break;
       default:
