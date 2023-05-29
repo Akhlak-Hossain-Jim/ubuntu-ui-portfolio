@@ -169,12 +169,12 @@ mailto:aklajim@yahoo.com`,
       bg={"#484b59"}
     >
       <Container>
-        {/* <div className="buttons">
-          {React.Children.toArray(
+        <div className="buttons">
+          {/* {React.Children.toArray(
             tabs.map((tab) => (
               <button onClick={() => setTab(tab.value)}>{tab.name}</button>
             ))
-          )}
+          )} */}
           <button
             onClick={() => {
               setTab("preview");
@@ -185,7 +185,7 @@ mailto:aklajim@yahoo.com`,
           >
             Print
           </button>{" "}
-        </div> */}
+        </div>
         {Tab === "preview" ? (
           <div className="resume">
             <h1>Akhlak Hossain Jim</h1>
