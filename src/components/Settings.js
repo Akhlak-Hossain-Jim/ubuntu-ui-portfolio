@@ -317,10 +317,14 @@ const Container = styled.div`
           justify-content: center;
           &__element {
             width: min(200px, 100%);
+            aspect-ratio: 16/10;
+            position: relative;
+            overflow: hidden;
             & > img {
               width: 100%;
-              height: auto;
+              height: 100%;
               object-fit: cover;
+              object-position: center;
             }
           }
         }

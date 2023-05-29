@@ -23,24 +23,25 @@ export default function Header() {
   const [close, setClose] = useState(false);
 
   const [DATE, setDATE] = useState();
+  const Months = {
+    0: "Jan",
+    1: "Feb",
+    2: "Mar",
+    3: "Apr",
+    4: "May",
+    5: "Jun",
+    6: "Jul",
+    7: "Aug",
+    8: "Sep",
+    9: "Oct",
+    10: "Nov",
+    11: "Dec",
+  };
   setInterval(() => {
     const date = new Date();
     setDATE(
       `${date.getDate()} ${
-        {
-          0: "Jan",
-          1: "Feb",
-          2: "Mar",
-          3: "Apr",
-          4: "May",
-          5: "Jun",
-          6: "Jul",
-          7: "Aug",
-          8: "Sep",
-          9: "Oct",
-          10: "Nov",
-          11: "Dec",
-        }[date.getMonth()]
+        Months[date.getMonth()]
       } ${date.getHours()}:${date.getMinutes()}`
     );
 
@@ -51,7 +52,6 @@ export default function Header() {
     setClose(true);
     setIsCurrent("close");
   };
-  console.log(isCurrent);
   return (
     <>
       <Container className={isCurrent === "close" ? "focused" : ""}>
@@ -146,6 +146,9 @@ const Container = styled.header`
   /* @media (min-width: 1536px) {
     height: calc(27px + 2vmin);
   } */
+  @media print {
+    display: none;
+  }
   .elements {
     &:first-child {
       text-transform: capitalize;

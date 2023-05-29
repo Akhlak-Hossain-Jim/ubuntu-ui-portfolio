@@ -9,6 +9,7 @@ export default function SoftContainer({
   children,
   updateShowApp,
   showApp,
+  bg,
 }) {
   const { currentApp, updateCurrentApp } = useApp();
   const [state, setState] = useState("");
@@ -30,6 +31,7 @@ export default function SoftContainer({
     <>
       {showApp && (
         <Container
+          bg={bg}
           className={`${state} ${currentApp === name ? "focused" : ""}`}
           onClick={() => updateCurrentApp(name)}
         >
@@ -87,6 +89,16 @@ const Container = styled.div`
     right: 0;
     bottom: 0;
   }
+  @media print {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+  }
   .soft_header {
     background-color: var(--program-header);
     font-size: 14px;
@@ -98,6 +110,9 @@ const Container = styled.div`
     border-radius: 12px 12px 0 0;
     top: 0;
     z-index: 1;
+    @media print {
+      display: none;
+    }
     &__name {
       font-weight: 400;
     }
@@ -111,9 +126,13 @@ const Container = styled.div`
     }
   }
   .soft_body {
-    background-color: var(--program-bg-p);
+    background-color: ${(props) =>
+      props.bg ? props.bg : "var(--program-bg-p)"};
     /* flex: 1; */
     height: 100%;
     padding-bottom: 12px;
+    @media print {
+      padding: 0;
+    }
   }
 `;

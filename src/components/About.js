@@ -51,6 +51,7 @@ export default function About() {
       name={"About"}
       showApp={showAbout}
       updateShowApp={updateShowAbout}
+      bg={`var(--github-bg)`}
     >
       <Container>
         <div className="about">
