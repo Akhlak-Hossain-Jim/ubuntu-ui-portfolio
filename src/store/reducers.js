@@ -6,6 +6,7 @@ export const initialState = {
   showGithub: false,
   showAbout: true,
   showProjects: false,
+  showCV: false,
 };
 
 const reducer = (state, action) => {
@@ -31,6 +32,9 @@ const reducer = (state, action) => {
     }
     case "updateShowProjects": {
       return { ...state, showProjects: payload };
+    }
+    case "updateShowCV": {
+      return { ...state, showCV: payload };
     }
     default: {
       return state;

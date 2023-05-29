@@ -13,6 +13,7 @@ export default function Terminal() {
     updateShowGithub,
     updateShowSetting,
     updateShowAbout,
+    updateShowCV,
   } = useApp();
   const [state, setState] = useState("");
   const [terminalText, setTerminalText] = useState([]);
@@ -110,6 +111,20 @@ export default function Terminal() {
         setTimeout(() => {
           updateShowAbout(true);
           updateCurrentApp("About");
+        }, 1000);
+        break;
+      case "CV .":
+      case "cv .":
+      case "Cv .":
+      case "cV .":
+        setTerminalText([
+          ...terminalText,
+          `$ ${input}`,
+          `Opening CV creator...`,
+        ]);
+        setTimeout(() => {
+          updateShowCV(true);
+          updateCurrentApp("CV Creator");
         }, 1000);
         break;
       case "mail":

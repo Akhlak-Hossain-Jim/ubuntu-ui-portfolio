@@ -48,6 +48,12 @@ export const Provider = ({ children }) => {
       payload: value,
     });
   };
+  const updateShowCV = (value) => {
+    dispatch({
+      type: "updateShowCV",
+      payload: value,
+    });
+  };
 
   const value = {
     currentApp: state.currentApp,
@@ -64,6 +70,8 @@ export const Provider = ({ children }) => {
     updateShowAbout,
     showProjects: state.showProjects,
     updateShowProjects,
+    showCV: state.showCV,
+    updateShowCV,
   };
   return <Context.Provider value={value}>{children}</Context.Provider>;
 };

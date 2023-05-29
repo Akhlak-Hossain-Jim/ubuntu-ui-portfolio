@@ -7,6 +7,7 @@ import { FcSettings } from "react-icons/fc";
 import { TiInfoLarge } from "react-icons/ti";
 import useApp from "../store";
 import { RiMailSendFill } from "react-icons/ri";
+import { FaFileInvoice } from "react-icons/fa";
 
 export default function Aside() {
   const {
@@ -22,6 +23,8 @@ export default function Aside() {
     updateShowSetting,
     showAbout,
     updateShowAbout,
+    showCV,
+    updateShowCV,
   } = useApp();
 
   const setAllApps = (value) => updateAllApp(value);
@@ -81,7 +84,13 @@ export default function Aside() {
           bg="var(--orange)"
           onClick={() => handleApp(showAbout, "About", updateShowAbout)}
         >
-          <TiInfoLarge style={{ transform: "scale(1.1)", margin: "auto" }} />
+          <TiInfoLarge
+            style={{
+              transform: "scale(1.1)",
+              margin: "auto",
+              borderRadius: "50%",
+            }}
+          />
           <span className="app_-name">About</span>
         </ComApp>
         <span
@@ -91,6 +100,19 @@ export default function Aside() {
           <FcSettings />
           <span className="app_-name">Settings</span>
         </span>
+        <ComApp
+          className={`vis ${showCV ? "hasTab active" : ""}`}
+          bg="$00000000"
+          onClick={() => handleApp(showCV, "CV Creator", updateShowCV)}
+        >
+          <FaFileInvoice
+            style={{
+              transform: "scale(1.1)",
+              margin: "auto",
+            }}
+          />
+          <span className="app_-name">CV Creator</span>
+        </ComApp>
         <ComApp
           className="vis"
           style={{ borderRadius: "50%" }}
@@ -137,6 +159,9 @@ const Container = styled.aside`
   /* @media (min-width: 1536px) {
     width: calc(50px + 2vmin);
   } */
+  @media print {
+    display: none;
+  }
   .aside_top {
     display: flex;
     flex-direction: column;
@@ -237,7 +262,6 @@ const ComApp = styled.span`
   }
   & > *:first-child {
     background-color: ${(props) => (props.bg ? props.bg : "#000")};
-    border-radius: 50%;
   }
   .hasTab {
     position: relative;

@@ -8,6 +8,7 @@ import Settings from "./components/Settings";
 import Install from "./components/Install";
 import useApp from "./store";
 import About from "./components/About";
+import CvCompiler from "./components/CvCompiler";
 
 function App() {
   const { updateCurrentApp } = useApp();
@@ -38,6 +39,7 @@ function App() {
           <Github />
           <Settings setBackground={setBackground} Background={Background} />
           <About />
+          <CvCompiler />
         </main>
       </div>
     </HomeContainer>
