@@ -13,18 +13,18 @@ export default function SoftContainer({
   const { currentApp, updateCurrentApp } = useApp();
   const [state, setState] = useState("");
   const handleMinimize = () => {
-    updateCurrentApp(undefined);
+    updateCurrentApp("Activity");
     setState("minimize");
   };
 
   const handleClose = () => {
-    updateCurrentApp(undefined);
+    updateCurrentApp("Activity");
     updateShowApp(false);
   };
 
   useEffect(() => {
     state === "minimize" && currentApp === name && setState("");
-  }, [currentApp, state, name]);
+  }, [currentApp, name]);
 
   return (
     <>

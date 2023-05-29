@@ -56,17 +56,6 @@ export default function Aside() {
       setShow(true);
     }
   };
-  const handleSetting = () => {
-    setAllApps(false);
-    if (showSetting) {
-      currentApp === "settings"
-        ? updateCurrentApp("")
-        : updateCurrentApp("settings");
-    } else {
-      updateCurrentApp("settings");
-      updateShowSetting(true);
-    }
-  };
 
   const AsideTop = () => {
     return (
@@ -92,11 +81,11 @@ export default function Aside() {
           onClick={() => handleApp(showAbout, "About", updateShowAbout)}
         >
           <TiInfoLarge style={{ transform: "scale(1.1)", margin: "auto" }} />
-          <span className="app_-name">Github</span>
+          <span className="app_-name">About</span>
         </ComApp>
         <span
           className={`settings ${showSetting ? "hasTab active" : ""}`}
-          onClick={handleSetting}
+          onClick={() => handleApp(showSetting, "Settings", updateShowSetting)}
         >
           <FcSettings />
           <span className="app_-name">Settings</span>
@@ -216,6 +205,33 @@ const Container = styled.aside`
   }
 `;
 
+const ComApp = styled.span`
+  color: ${(props) => (props.color ? props.color : "#fff")};
+  font-size: 1.7rem;
+  display: flex;
+  margin: 2px;
+  aspect-ratio: 1/1;
+  & > *:first-child {
+    background-color: ${(props) => (props.bg ? props.bg : "#000")};
+    border-radius: 50%;
+  }
+  .hasTab {
+    position: relative;
+    &:after {
+      content: "";
+      position: absolute;
+      width: 6px;
+      top: 50%;
+      left: auto;
+      right: -8px;
+      transform: translateY(-50%);
+      aspect-ratio: 1/1;
+      background-color: white;
+      border-radius: 50%;
+    }
+  }
+`;
+
 const AllAppsContainer = styled.div`
   position: fixed;
   top: 27px;
@@ -248,30 +264,6 @@ const AllAppsContainer = styled.div`
       & > .app_-name {
         font-size: 16px;
       }
-    }
-  }
-`;
-
-const ComApp = styled.span`
-  color: ${(props) => (props.color ? props.color : "#fff")};
-  background-color: ${(props) => (props.bg ? props.bg : "#000")};
-  font-size: 1.7rem;
-  display: flex;
-  margin: 0 2px;
-  aspect-ratio: 1/1;
-  .hasTab {
-    position: relative;
-    &:after {
-      content: "";
-      position: absolute;
-      width: 6px;
-      top: 50%;
-      left: auto;
-      right: -8px;
-      transform: translateY(-50%);
-      aspect-ratio: 1/1;
-      background-color: white;
-      border-radius: 50%;
     }
   }
 `;
