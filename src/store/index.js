@@ -36,18 +36,34 @@ export const Provider = ({ children }) => {
       payload: value,
     });
   };
+  const updateShowAbout = (value) => {
+    dispatch({
+      type: "updateShowAbout",
+      payload: value,
+    });
+  };
+  const updateShowProjects = (value) => {
+    dispatch({
+      type: "updateShowProjects",
+      payload: value,
+    });
+  };
 
   const value = {
     currentApp: state.currentApp,
-    allApps: state.allApps,
-    showSetting: state.showSetting,
-    showTerminal: state.showTerminal,
-    showGithub: state.showGithub,
     updateCurrentApp,
+    allApps: state.allApps,
     updateAllApp,
+    showSetting: state.showSetting,
     updateShowSetting,
+    showTerminal: state.showTerminal,
     updateShowTerminal,
+    showGithub: state.showGithub,
     updateShowGithub,
+    showAbout: state.showAbout,
+    updateShowAbout,
+    showProjects: state.showProjects,
+    updateShowProjects,
   };
   return <Context.Provider value={value}>{children}</Context.Provider>;
 };

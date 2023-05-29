@@ -1,9 +1,11 @@
 export const initialState = {
-  currentApp: "",
+  currentApp: "About",
   allApps: false,
   showSetting: false,
   showTerminal: false,
   showGithub: false,
+  showAbout: true,
+  showProjects: false,
 };
 
 const reducer = (state, action) => {
@@ -23,6 +25,12 @@ const reducer = (state, action) => {
     }
     case "updateShowGithub": {
       return { ...state, showGithub: payload };
+    }
+    case "updateShowAbout": {
+      return { ...state, showAbout: payload };
+    }
+    case "updateShowProjects": {
+      return { ...state, showProjects: payload };
     }
     default: {
       return state;

@@ -51,6 +51,7 @@ export default function Header() {
     setClose(true);
     setIsCurrent("close");
   };
+  console.log(isCurrent);
   return (
     <>
       <Container className={isCurrent === "close" ? "focused" : ""}>

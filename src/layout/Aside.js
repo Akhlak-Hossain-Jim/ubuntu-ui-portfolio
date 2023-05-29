@@ -4,6 +4,7 @@ import { BsFillTerminalFill } from "react-icons/bs";
 import { VscGithub } from "react-icons/vsc";
 import { CgMenuGridR } from "react-icons/cg";
 import { FcSettings } from "react-icons/fc";
+import { TiInfoLarge } from "react-icons/ti";
 import useApp from "../store";
 
 export default function Aside() {
@@ -18,6 +19,8 @@ export default function Aside() {
     updateShowGithub,
     showSetting,
     updateShowSetting,
+    showAbout,
+    updateShowAbout,
   } = useApp();
 
   const setAllApps = (value) => updateAllApp(value);
@@ -42,6 +45,15 @@ export default function Aside() {
     } else {
       updateCurrentApp("github");
       updateShowGithub(true);
+    }
+  };
+  const handleApp = (show, name, setShow) => {
+    setAllApps(false);
+    if (show) {
+      currentApp === name ? updateCurrentApp("") : updateCurrentApp(name);
+    } else {
+      updateCurrentApp(name);
+      setShow(true);
     }
   };
   const handleSetting = () => {
@@ -73,6 +85,15 @@ export default function Aside() {
           <VscGithub style={{ transform: "scale(1.1)", margin: "auto" }} />
           <span className="app_-name">Github</span>
         </span>
+        <ComApp
+          className={`${showAbout ? "hasTab" : ""}`}
+          style={{ borderRadius: "50%" }}
+          bg="var(--orange)"
+          onClick={() => handleApp(showAbout, "About", updateShowAbout)}
+        >
+          <TiInfoLarge style={{ transform: "scale(1.1)", margin: "auto" }} />
+          <span className="app_-name">Github</span>
+        </ComApp>
         <span
           className={`settings ${showSetting ? "hasTab active" : ""}`}
           onClick={handleSetting}
@@ -227,6 +248,30 @@ const AllAppsContainer = styled.div`
       & > .app_-name {
         font-size: 16px;
       }
+    }
+  }
+`;
+
+const ComApp = styled.span`
+  color: ${(props) => (props.color ? props.color : "#fff")};
+  background-color: ${(props) => (props.bg ? props.bg : "#000")};
+  font-size: 1.7rem;
+  display: flex;
+  margin: 0 2px;
+  aspect-ratio: 1/1;
+  .hasTab {
+    position: relative;
+    &:after {
+      content: "";
+      position: absolute;
+      width: 6px;
+      top: 50%;
+      left: auto;
+      right: -8px;
+      transform: translateY(-50%);
+      aspect-ratio: 1/1;
+      background-color: white;
+      border-radius: 50%;
     }
   }
 `;
