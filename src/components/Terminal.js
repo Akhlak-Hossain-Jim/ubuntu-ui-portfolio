@@ -28,6 +28,7 @@ export default function Terminal() {
     "'exit' to close the terminal",
     "'github .' to open up Github instance",
     "'help' to get help",
+    "'mail' to send an email to Akhlak's mail",
     "'portfolio .' to open up Akhlak's Portfolio",
     "'reboot' to reload the window",
     "'settings .' to open up settings",
@@ -110,6 +111,18 @@ export default function Terminal() {
           updateShowAbout(true);
           updateCurrentApp("About");
         }, 1000);
+        break;
+      case "mail":
+      case "Mail":
+        setTerminalText([
+          ...terminalText,
+          `$ ${input}`,
+          `Opening native mail app...`,
+        ]);
+        window.open(
+          `mailto:aklajim@yahoo.com?subject=Hello There!&body=Hi Akhlak, so, I was looking at your Ubuntu UI web app and...`,
+          "_blank"
+        );
         break;
       default:
         setTerminalText([

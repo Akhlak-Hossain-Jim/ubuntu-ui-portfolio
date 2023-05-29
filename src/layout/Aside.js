@@ -6,6 +6,7 @@ import { CgMenuGridR } from "react-icons/cg";
 import { FcSettings } from "react-icons/fc";
 import { TiInfoLarge } from "react-icons/ti";
 import useApp from "../store";
+import { RiMailSendFill } from "react-icons/ri";
 
 export default function Aside() {
   const {
@@ -90,6 +91,20 @@ export default function Aside() {
           <FcSettings />
           <span className="app_-name">Settings</span>
         </span>
+        <ComApp
+          className="vis"
+          style={{ borderRadius: "50%" }}
+          bg="$00000000"
+          onClick={() =>
+            window.open(
+              `mailto:aklajim@yahoo.com?subject=Hello There!&body=Hi Akhlak, so, I was looking at your Ubuntu UI web app and...`,
+              "_blank"
+            )
+          }
+        >
+          <RiMailSendFill style={{ transform: "scale(1.1)", margin: "auto" }} />
+          <span className="app_-name">Mail</span>
+        </ComApp>
       </div>
     );
   };
@@ -211,6 +226,15 @@ const ComApp = styled.span`
   display: flex;
   margin: 2px;
   aspect-ratio: 1/1;
+  &.vis {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    &.active {
+      display: flex;
+    }
+  }
   & > *:first-child {
     background-color: ${(props) => (props.bg ? props.bg : "#000")};
     border-radius: 50%;
