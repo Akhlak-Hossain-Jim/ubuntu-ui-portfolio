@@ -7,6 +7,7 @@ import Github from "./components/Github";
 import Settings from "./components/Settings";
 import Install from "./components/Install";
 import useApp from "./store";
+import About from "./components/About";
 
 function App() {
   const { updateCurrentApp } = useApp();
@@ -36,6 +37,7 @@ function App() {
           <Terminal />
           <Github />
           <Settings setBackground={setBackground} Background={Background} />
+          <About />
         </main>
       </div>
     </HomeContainer>
